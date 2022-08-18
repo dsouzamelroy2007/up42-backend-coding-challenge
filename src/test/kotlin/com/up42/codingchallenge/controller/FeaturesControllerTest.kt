@@ -1,4 +1,4 @@
-package com.up42.codingchallenge
+package com.up42.codingchallenge.controller
 
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
