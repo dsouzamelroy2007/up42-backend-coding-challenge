@@ -2,7 +2,7 @@ package com.up42.codingchallenge.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.up42.codingchallenge.constant.FeatureConstants.SOURCE_FEATURE_FILE_PATH
-import com.up42.codingchallenge.util.FileUtil
+import com.up42.codingchallenge.util.FeatureUtil
 import io.restassured.RestAssured
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeAll
@@ -73,15 +73,15 @@ internal class FeatureControllerTest @Autowired constructor(
         @Test
         fun `should return all features`() {
 
-            val features = FileUtil.readFeaturesFromFile(SOURCE_FEATURE_FILE_PATH)
-            val expectedFeaturesIT = features.withIndex().associateBy ({ it.index }, {it.value})
+            val features = FeatureUtil.getFeatures(FeatureUtil.readFeaturesFromFile(SOURCE_FEATURE_FILE_PATH))
+            val expectedFeatures = features.withIndex().associateBy({ it.index }, { it.value })
 
             RestAssured.given()
                 .get(baseUrl)
                 .then()
                 .statusCode(200)
                 .also { validatableResponse ->
-                    expectedFeaturesIT.forEach { feature ->
+                    expectedFeatures.forEach { feature ->
                         validatableResponse.body("id[${feature.key}]", Matchers.equalTo(feature.value.id.toString()))
                             .body("timestamp[${feature.key}]", Matchers.equalTo(feature.value.timestamp))
                             .body("beginViewingDate[${feature.key}]", Matchers.equalTo(feature.value.beginViewingDate))

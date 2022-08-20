@@ -1,9 +1,9 @@
 package com.up42.codingchallenge.datasource
 
-import com.up42.codingchallenge.model.Feature
+import com.up42.codingchallenge.dto.FeatureDto
 
 interface FeatureDataSource {
-    fun retrieveFeatures(): Collection<Feature>
+    fun retrieveFeatures(): List<FeatureDto>
 
-   // fun retrieveFeature(id: String): Feature
+    // fun retrieveFeature(id: String): Feature
 }

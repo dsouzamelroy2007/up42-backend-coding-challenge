@@ -1,4 +1,4 @@
-package com.up42.codingchallenge.model
+package com.up42.codingchallenge.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 

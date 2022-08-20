@@ -1,8 +1,8 @@
-package com.up42.codingchallenge.model
+package com.up42.codingchallenge.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.*
+import java.util.UUID
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class FeatureProperties(
