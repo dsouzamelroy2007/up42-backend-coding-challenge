@@ -18,11 +18,14 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.microutils:kotlin-logging:2.1.23")
     implementation("de.grundid.opendatalab:geojson-jackson:1.12")
+    implementation("io.springfox:springfox-swagger2:2.7.0")
+    implementation("io.springfox:springfox-swagger-ui:2.7.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.rest-assured:rest-assured")
     testImplementation("io.mockk:mockk:1.12.5")

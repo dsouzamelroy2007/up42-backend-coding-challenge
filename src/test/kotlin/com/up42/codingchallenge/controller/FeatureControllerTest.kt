@@ -81,7 +81,7 @@ internal class FeatureControllerTest @Autowired constructor(
 
             // when/then
             mockMvc.get(apiUrl)
-                .andExpect { status { isNotFound() } }
+                .andExpect { status { isBadRequest() } }
         }
     }
 
@@ -118,17 +118,17 @@ internal class FeatureControllerTest @Autowired constructor(
                 }
         }
         @Test
-        fun `should return Page not Found for a quicklook request`() {
+        fun `should return feature not Found for an incorrect quicklook request`() {
             // given
-            val apiurl = "$baseUrl/b0d3bf6a-ff54-49e0-a4cb-e57dcb68d3b5/quicklook"
+            val apiurl = "$baseUrl/ca81d759-0b8c-4b3f-a00a-0908a3dddd655/quicklook"
 
             // when,then
             RestAssured.given()
                 .get(apiurl)
                 .then()
-                .statusCode(404)
+                .statusCode(400)
                 .also { validatableResponse ->
-                    validatableResponse.body(Matchers.equalTo("Page Not Found"))
+                    validatableResponse.body(Matchers.equalTo("Requested Feature not found"))
                 }
         }
     }
