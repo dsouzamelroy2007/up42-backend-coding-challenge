@@ -1,6 +1,5 @@
 package com.up42.codingchallenge.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.up42.codingchallenge.constant.FeatureConstants.SOURCE_FEATURE_FILE_PATH
 import com.up42.codingchallenge.util.FeatureUtil
 import io.restassured.RestAssured
@@ -21,8 +20,7 @@ import org.springframework.test.web.servlet.get
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 internal class FeatureControllerTest @Autowired constructor(
-    val mockMvc: MockMvc,
-    val objectMapper: ObjectMapper
+    val mockMvc: MockMvc
 ) {
     val baseUrl = "/api/features"
 
@@ -57,6 +55,35 @@ internal class FeatureControllerTest @Autowired constructor(
                 .andExpect { status { isNotFound() } }
         }
     }
+    @Nested
+    @DisplayName("GET /api/features/{featureId}/quicklook")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class GetFeatureImage {
+        @Test
+        fun `should return a quicklook feature image`() {
+            // given
+            val featureId = "cf5dbe37-ab95-4af1-97ad-2637aec4ddf0"
+            val apiUrl = "$baseUrl/$featureId/quicklook"
+
+            // when/then
+            mockMvc.get(apiUrl)
+                .andExpect {
+                    status { isOk() }
+                    content { contentType(MediaType.IMAGE_PNG) }
+                }
+        }
+
+        @Test
+        fun `should return NOT FOUND if the requested feature is not present`() {
+            // given
+            val featureId = "cfe37-ab95-4af1-97ad-2637aec4ddf0"
+            val apiUrl = "$baseUrl/$featureId/quicklook"
+
+            // when/then
+            mockMvc.get(apiUrl)
+                .andExpect { status { isNotFound() } }
+        }
+    }
 
     @Nested
     @DisplayName("Integration Testing")
@@ -88,6 +115,20 @@ internal class FeatureControllerTest @Autowired constructor(
                             .body("endViewingDate[${feature.key}]", Matchers.equalTo(feature.value.endViewingDate))
                             .body("missionName[${feature.key}]", Matchers.equalTo(feature.value.missionName))
                     }
+                }
+        }
+        @Test
+        fun `should return Page not Found for a quicklook request`() {
+            // given
+            val apiurl = "$baseUrl/b0d3bf6a-ff54-49e0-a4cb-e57dcb68d3b5/quicklook"
+
+            // when,then
+            RestAssured.given()
+                .get(apiurl)
+                .then()
+                .statusCode(404)
+                .also { validatableResponse ->
+                    validatableResponse.body(Matchers.equalTo("Page Not Found"))
                 }
         }
     }

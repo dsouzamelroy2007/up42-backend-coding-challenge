@@ -19,4 +19,15 @@ internal class FeatureServiceTest {
         // then
         verify(exactly = 1) { dataSource.retrieveFeatures() }
     }
+    @Test
+    fun `should call its data source to get a Quicklook`() {
+        // given
+        val featureId = "cf5dbe37-ab95-4af1-97ad-2637aec4ddf0"
+
+        // when
+        featureService.getQuicklook(featureId)
+
+        // then
+        verify(exactly = 1) { dataSource.retrieveFeatureById(featureId) }
+    }
 }

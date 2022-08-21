@@ -41,6 +41,7 @@ object FeatureUtil {
             logger.error("Error while reading file from requested path {} ", filePath, e)
             throw ResourceNotFoundException("Features file not found")
         }
+        logger.debug("Features from file cached locally")
     }
 
     fun getFeatures(features: List<Feature>): List<FeatureDto> {

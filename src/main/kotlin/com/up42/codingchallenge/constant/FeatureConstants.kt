@@ -8,4 +8,5 @@ object FeatureConstants {
     const val END_VIEWING_DATE = "endViewingDate"
     const val MISSION_NAME = "missionName"
     const val ACQUISITION = "acquisition"
+    const val QUICKLOOK = "quicklook"
 }
