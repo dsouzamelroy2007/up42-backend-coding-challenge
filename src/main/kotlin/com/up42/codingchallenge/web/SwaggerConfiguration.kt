@@ -1,3 +1,6 @@
+package com.up42.codingchallenge.web
+
+import com.google.common.base.Predicates
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import springfox.documentation.builders.PathSelectors
@@ -16,10 +19,10 @@ class SwaggerConfiguration {
     @Bean
     open fun api(): Docket = Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.up42.codingchallenge."))
-        .paths(PathSelectors.any())
+        .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework")))
+        .apis(RequestHandlerSelectors.basePackage("com.up42.codingchallenge.controller"))
+        .paths(Predicates.not(PathSelectors.regex("/error"))) // Exclude Spring error controllers
         .build()
-        .pathMapping("")
         .apiInfo(apiInfo())
 
     fun apiInfo(): ApiInfo? {

@@ -5,9 +5,9 @@ import java.util.UUID
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class FeatureDto(
-    var id: UUID?,
-    var timestamp: Long?,
-    var beginViewingDate: Long?,
-    var endViewingDate: Long?,
-    var missionName: String?
+    var id: UUID,
+    var timestamp: Long,
+    var beginViewingDate: Long,
+    var endViewingDate: Long,
+    var missionName: String
 )

@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  web:
+    image: backend-coding-challenge-mel
+    container_name: feature-service
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8080:8080"
